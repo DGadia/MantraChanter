@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Reader</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card shadow-lg p-4">
+            <h2 class="text-center mb-4">Text to Speech Reader</h2>
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Select Language:</label>
+                    <select name="language" class="form-control" required>
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="fr">French</option>
+                        <option value="es">Spanish</option>
+                        <option value="de">German</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Enter your text:</label>
+                    <textarea name="text" class="form-control" rows="5" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Repeat Times:</label>
+                    <input type="number" name="repeat" class="form-control" min="1" value="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Generate Audio</button>
+            </form>
+
+            {% if audio_file %}
+            <div class="mt-4 text-center">
+                <h5>Your Audio:</h5>
+                <audio controls autoplay>
+                    <source src="{{ url_for('static', filename='output.mp3') }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <br><br>
+                <!-- Download button -->
+                <a href="{{ url_for('static', filename='output.mp3') }}" download="output.mp3" class="btn btn-success">
+                    Download Audio
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
